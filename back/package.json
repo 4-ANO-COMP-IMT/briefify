@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run": "tsx src/server.ts",
+    "back:run": "tsx src/server.ts",
     "back:dev": "tsx watch src/server.ts",
-    "build": "tsup src",
-    "test": "vitest"
+    "back:build": "tsup src",
+    "back:test": "vitest"
   },
   "keywords": [],
   "author": "",
