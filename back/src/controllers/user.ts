@@ -48,9 +48,9 @@ router.post("/user", (req, res) => {
   }
 });
 
-router.post("/sign-in", (req, res) => {
+router.get("/sign-in/:email/:password", (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.params;
 
     const user = repo.signInUser(email, password);
 
