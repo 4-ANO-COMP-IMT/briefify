@@ -1,8 +1,8 @@
 import express from "express";
-import { RepositoryMock } from "../repository/repository-mock";
+import { UserRepositoryMock } from "../models/mock/user-repository-mock";
 
 const router = express.Router();
-const repo = new RepositoryMock();
+const repo = new UserRepositoryMock();
 
 router.get("/user/:id", (req, res) => {
   try {

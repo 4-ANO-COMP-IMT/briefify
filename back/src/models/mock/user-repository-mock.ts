@@ -1,16 +1,7 @@
 import { randomUUID } from "crypto";
-import { IRepository } from "./repository-interface";
+import { IRepository, User } from "./repository-interface";
 
-export interface User {
-  id: string;
-  name: string;
-  cpf: number;
-  email: string;
-  password: string;
-  company: string;
-}
-
-export class RepositoryMock implements IRepository {
+export class UserRepositoryMock implements IRepository {
   private users: User[] = [];
 
   constructor() {
@@ -44,7 +35,7 @@ export class RepositoryMock implements IRepository {
 
   signInUser(email: string, password: string): User | undefined {
     return this.users.find(
-      (user) => user.email === email && user.password === password
+      (user) => user.email === email && user.password === password,
     );
   }
 
@@ -53,7 +44,7 @@ export class RepositoryMock implements IRepository {
     email: string,
     cpf: number,
     password: string,
-    company: string
+    company: string,
   ): User {
     const newUser: User = {
       id: randomUUID(),
@@ -73,7 +64,7 @@ export class RepositoryMock implements IRepository {
     email?: string,
     cpf?: number,
     password?: string,
-    company?: string
+    company?: string,
   ): User | undefined {
     const userIndex = this.users.findIndex((user) => user.id === id);
     if (userIndex !== -1) {

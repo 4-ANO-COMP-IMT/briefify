@@ -1,4 +1,11 @@
-import { User } from "./repository-mock";
+export interface User {
+  id: string;
+  name: string;
+  cpf: number;
+  email: string;
+  password: string;
+  company: string;
+}
 
 export interface IRepository {
   getUser(id: string): User | undefined;
@@ -9,7 +16,7 @@ export interface IRepository {
     email: string,
     cpf: number,
     password: string,
-    company: string
+    company: string,
   ): User;
   updateUser(
     id: string,
@@ -17,7 +24,7 @@ export interface IRepository {
     email?: string,
     cpf?: number,
     password?: string,
-    company?: string
+    company?: string,
   ): User | undefined;
   deleteUser(id: string): boolean;
 }
