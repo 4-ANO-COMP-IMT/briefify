@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
 
-test("Status Route", async () => {
+test("/status endpoint", async () => {
   const response = await fetch("http://localhost:3000/status");
   const resposeBody = await response.json();
 

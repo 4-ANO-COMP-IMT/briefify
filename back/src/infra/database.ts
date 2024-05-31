@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { Client } from "pg";
 
-export async function query(queryComand: string, values?: string[]) {
+async function query(queryComand: string, values?: (string | null)[]) {
   const client = new Client({
     host: process.env.POSTGRES_HOST,
     port: parseInt(process.env.POSTGRES_PORT ?? "5432"),
@@ -26,3 +26,5 @@ export async function query(queryComand: string, values?: string[]) {
     await client.end();
   }
 }
+
+export default { query };

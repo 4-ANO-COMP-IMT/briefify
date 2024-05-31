@@ -1,19 +1,21 @@
 import { Request, Response } from "express";
-import { query } from "src/infra/database";
+import database from "src/infra/database";
 import "dotenv/config";
 
 const getStatus = async (req: Request, res: Response) => {
   const updatedAt = new Date().toISOString();
 
-  const databaseVersionResponse = await query("SHOW server_version;");
+  const databaseVersionResponse = await database.query("SHOW server_version;");
   const databaseVersion = databaseVersionResponse?.rows[0].server_version;
 
-  const databaseMaxConnectionsResponse = await query("SHOW max_connections;");
+  const databaseMaxConnectionsResponse = await database.query(
+    "SHOW max_connections;",
+  );
   const databaseMaxConnections =
     databaseMaxConnectionsResponse?.rows[0].max_connections;
 
   const databaseName = process.env.POSTGRES_DB ?? "";
-  const databaseOpenedConnectionsResponse = await query(
+  const databaseOpenedConnectionsResponse = await database.query(
     "SELECT count(*) FROM pg_stat_activity WHERE datname = $1;",
     [databaseName],
   );
