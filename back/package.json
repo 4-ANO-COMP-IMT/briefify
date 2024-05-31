@@ -5,9 +5,13 @@
   "main": "index.js",
   "scripts": {
     "back:run": "tsx src/server.ts",
-    "back:dev": "tsx watch src/server.ts",
+    "back:dev": "pnpm run back:docker-up && tsx watch src/server.ts",
     "back:build": "tsup src",
-    "back:test": "vitest"
+    "back:test": "vitest",
+    "back:docker-up": "docker compose -f src/infra/compose.yaml up -d",
+    "back:docker-down": "docker compose -f src/infra/compose.yaml down",
+    "back:lint:check": "prettier --check .",
+    "back:lint:fix": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -15,11 +19,14 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "pg": "^8.11.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^20.12.12",
+    "@types/pg": "^8.11.6",
+    "prettier": "^3.2.5",
     "tsup": "^8.0.2",
     "tsx": "^4.10.3",
     "typescript": "^5.4.5",
