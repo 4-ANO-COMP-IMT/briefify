@@ -2,7 +2,7 @@
 
 Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em seu ambiente:
 
-- [Node.js](https://nodejs.org/) (versão X.X.X ou superior)
+- [Node.js](https://nodejs.org/) 
 - [pnpm](https://pnpm.io/) (gerenciador de pacotes)
 
 ### Passo a Passo
