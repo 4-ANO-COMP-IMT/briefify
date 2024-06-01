@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import database from "src/infra/database";
 import { z } from "zod";
 import { v4 as uuid } from "uuid";
+import bcrypt from "bcrypt";
 
 const SignUpSchema = z.object({
   name: z.string().min(3),
@@ -15,6 +16,9 @@ const SignUpSchema = z.object({
 const signUp = async (req: Request, res: Response) => {
   try {
     const bodyValidated = SignUpSchema.parse(req.body);
+
+    const passwordProtected = await bcrypt.hash(bodyValidated.password, 10);
+
     const response = await database.query(
       `INSERT INTO "User" (id, name, cpf, email, password, company, role)
        VALUES ($1, $2, $3, $4, $5, $6, $7)
@@ -24,7 +28,7 @@ const signUp = async (req: Request, res: Response) => {
         bodyValidated.name,
         bodyValidated.cpf,
         bodyValidated.email,
-        bodyValidated.password,
+        passwordProtected,
         bodyValidated.company || null,
         bodyValidated.role || null,
       ],

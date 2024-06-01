@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import database from "src/infra/database";
 import { z } from "zod";
+import bcrypt from "bcrypt";
 
 const SignInSchema = z.object({
   email: z.string().email(),
@@ -11,23 +12,38 @@ const signIn = async (req: Request, res: Response) => {
   try {
     const bodyValidated = SignInSchema.parse(req.body);
     const response = await database.query(
-      `SELECT id, name, email, company, role FROM "User" WHERE email = $1 AND password = $2`,
-      [bodyValidated.email, bodyValidated.password],
+      `SELECT * FROM "User" WHERE email = $1`,
+      [bodyValidated.email],
     );
 
     const user = response?.rows[0];
 
     if (!user) {
-      res.status(401).json({ error: "Invalid email or password" });
+      return res.status(401).json({ error: "Invalid email." });
     }
 
-    res.status(200).json(user);
+    const passwordMatch = await bcrypt.compare(
+      bodyValidated.password,
+      user.password,
+    );
+
+    if (!passwordMatch) {
+      return res.status(401).json({ error: "Invalid password." });
+    }
+
+    return res.status(200).json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      company: user.company,
+      role: user.role,
+    });
   } catch (error) {
     console.error(error);
     if (error instanceof z.ZodError) {
-      res.status(400).json({ error: error.errors });
+      return res.status(400).json({ error: error.errors });
     } else {
-      res.status(500).json({ error: "Internal Server Error" });
+      return res.status(500).json({ error: "Internal Server Error" });
     }
   }
 };
