@@ -5,21 +5,40 @@
   "main": "index.js",
   "scripts": {
     "back:run": "tsx src/server.ts",
-    "back:dev": "tsx watch src/server.ts",
+    "back:dev": "pnpm run back:docker-up && tsx watch src/server.ts ",
     "back:build": "tsup src",
-    "back:test": "vitest"
+    "back:test": "vitest",
+    "back:docker-up": "docker compose -f src/infra/compose.yaml up -d",
+    "back:docker-down": "docker compose -f src/infra/compose.yaml down",
+    "back:lint:check": "prettier --check .",
+    "back:lint:fix": "prettier --write .",
+    "back:prisma:migrate": "pnpm prisma migrate dev --name init",
+    "back:prisma:run": "pnpm prisma migrate dev"
+  },
+  "prisma": {
+    "schema": "src/infra/prisma/schema.prisma"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "pg": "^8.11.5",
+    "uuid": "^9.0.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
     "@types/node": "^20.12.12",
+    "@types/pg": "^8.11.6",
+    "@types/uuid": "^9.0.8",
+    "prettier": "^3.2.5",
+    "prisma": "^5.14.0",
+    "ts-node": "^10.9.2",
     "tsup": "^8.0.2",
     "tsx": "^4.10.3",
     "typescript": "^5.4.5",
