@@ -1,16 +1,25 @@
-import { AudioWaveform } from "lucide-react";
-import { Button } from "./ui/button";
+import { buttonVariants } from "./ui/button";
+import { Logo } from "./ui/logo";
 
 export function Navbar() {
+  const AUTH_BUTTONS_VISIBILITY =
+    window.location.pathname === "/sign-in" ||
+    window.location.pathname === "/sign-up";
+
   return (
     <div className="bg-transparent fixed top-0 w-full px-6 py-4 flex flex-row items-center justify-between z-20 backdrop-blur-sm">
-      <div className="flex flex-row gap-2 items-center">
-        <AudioWaveform strokeWidth={1.5} className="h-5 w-5" />
-        <p className="text-primary font-semibold">Briefify</p>
-      </div>
-      <div className="flex flex-row gap-2 items-center">
-        <Button variant={"ghost"}>Cadastrar</Button>
-        <Button>Entrar</Button>
+      <a href="/" className={buttonVariants({ variant: "link" })}>
+        <Logo />
+      </a>
+      <div
+        className={`flex flex-row gap-2 items-center ${AUTH_BUTTONS_VISIBILITY ? "hidden" : null}`}
+      >
+        <a href="/sign-up" className={buttonVariants({ variant: "ghost" })}>
+          Cadastrar
+        </a>
+        <a href="/sign-in" className={buttonVariants({ variant: "default" })}>
+          Entrar
+        </a>
       </div>
     </div>
   );
