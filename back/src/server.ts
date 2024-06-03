@@ -1,6 +1,6 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
-import user from "./controllers/user";
+import user from "./controllers/user-controller";
 import status from "src/routes/status";
 import signIn from "src/routes/sign-in";
 import signUp from "src/routes/sign-up";
