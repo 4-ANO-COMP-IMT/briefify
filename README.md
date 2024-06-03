@@ -10,8 +10,8 @@ A Briefify é uma empresa inovadora que oferece um aplicativo para transformar �
 | Nome                           | RA         |
 | ------------------------------ | ---------- |
 | Bruno Augusto Lopes Fevereiro  | 20.02194-0 |
-| Gabriel Bianconi               | 20.xxxxx-x |
-| Carlos Alberto Matias da Costa | 20.xxxxx-x |
+| Gabriel Bianconi               | 20.00822-8 |
+| Carlos Alberto Matias da Costa | 20.01308-6 |
 
 ## Pré-requisitos
 
