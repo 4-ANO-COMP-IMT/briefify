@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
 
 const LoginSchema = z
   .object({
@@ -45,8 +46,16 @@ export default function SignIn() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof LoginSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof LoginSchema>) {
+    const response = await axios({
+      method: "post",
+      url: "http://localhost:3000/sign-in",
+      data: {
+        email: values.email,
+        password: values.password,
+      },
+    });
+    console.log(response.data);
   }
 
   return (

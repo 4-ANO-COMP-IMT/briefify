@@ -14,9 +14,12 @@ function Home() {
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="mt-8 bg-gradient-to-br from-stone-600 to-black py-10 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
+          className="mt-20 bg-gradient-to-br from-stone-600 to-black py-10 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
         >
-          Nós Transformamos Conversas <br /> em Memória Eficiente
+          Nós Transformamos Conversas <br /> em{" "}
+          <span className="bg-gradient-to-br from-sky-400 to-blue-800 py-10 bg-clip-text text-center font-medium tracking-tight text-transparent">
+            Memória Eficiente
+          </span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0.5, y: 100 }}
