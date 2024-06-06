@@ -4,6 +4,7 @@ import status from "src/routes/status";
 import signIn from "src/routes/sign-in";
 import signUp from "src/routes/sign-up";
 import user from "src/routes/user";
+import cors from "cors";
 
 dotenv.config();
 
@@ -12,6 +13,8 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 
 app.use(status);
 app.use(signIn);
