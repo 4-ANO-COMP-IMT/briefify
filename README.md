@@ -45,25 +45,21 @@ pnpm install
 
 4. **Execute o servidor de desenvolvimento:**
 
-Após a instalação das dependências, inicie o servidor de desenvolvimento com o comando:
+Após a instalação das dependências, inicie o servidor de desenvolvimento com so comandos:
 
-- back:
-
-```sh
-pnpm run back:dev
-pnpm run back:prisma:run
-```
-
-3. Inicie o servidor de desenvolvimento:
-
-- back:
+- **back:**
 
 ```bash
 pnpm run back:dev
+```
+
+Para as migrations do Banco de Dados:
+
+```bash
 pnpm run back:prisma:run
 ```
 
-- front:
+- **front:**
 
 ```bash
 pnpm run front:dev
