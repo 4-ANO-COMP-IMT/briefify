@@ -1,67 +1,16 @@
-import express from "express";
-import { UserRepositoryMock } from "../models/mock/user-repository-mock";
+import { Request, Response } from "express";
+import database from "src/infra/database";
 
-const router = express.Router();
-const repo = new UserRepositoryMock();
-
-router.get("/user/:id", (req, res) => {
+const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const user = repo.getUser(req.params.id);
+    const response = await database.query(`SELECT * FROM "User";`);
 
-    if (!user) {
-      res.sendStatus(404);
-    }
-
-    res.send(user);
+    const users = response?.rows;
+    res.status(201).json(users);
   } catch (error) {
-    console.log("Error: " + error);
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
-});
+};
 
-router.get("/user", (req, res) => {
-  try {
-    const user = repo.getAllUsers();
-
-    if (!user) {
-      res.sendStatus(404);
-    }
-
-    res.send(user);
-  } catch (error) {
-    console.log("Error: " + error);
-  }
-});
-
-router.post("/user", (req, res) => {
-  try {
-    const { name, email, cpf, password, company } = req.body;
-
-    const user = repo.createUser(name, email, cpf, password, company);
-
-    if (!user) {
-      res.status(500);
-    }
-
-    res.status(201).send(user);
-  } catch (error) {
-    console.log("Error: " + error);
-  }
-});
-
-router.get("/sign-in/:email/:password", (req, res) => {
-  try {
-    const { email, password } = req.params;
-
-    const user = repo.signInUser(email, password);
-
-    if (!user) {
-      res.sendStatus(404);
-    }
-
-    res.status(200).send(user);
-  } catch (error) {
-    console.log("Error: " + error);
-  }
-});
-
-export default router;
+export default { getAllUsers };
