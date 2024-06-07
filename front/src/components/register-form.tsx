@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
 
 const RegisterSchema = z
   .object({
@@ -39,9 +40,9 @@ const RegisterSchema = z
       path: ["password"],
     },
   )
-  .refine((data) => data.passwordConfirm === data.passwordConfirm, {
+  .refine((data) => data.password === data.passwordConfirm, {
     message: "A senha e a confirmação de senha devem ser iguais.",
-    path: ["password", "passwordConfirm"],
+    path: ["passwordConfirm"],
   });
 
 interface RegisterFormProps {
@@ -64,19 +65,30 @@ export default function RegisterForm({ accountType }: RegisterFormProps) {
 
   async function onSubmit(values: z.infer<typeof RegisterSchema>) {
     console.log(values);
-    //   const response = await axios({
-    //     method: "post",
-    //     url: "http://localhost:3000/sign-up",
-    //     data: {
-    //       name: values.name,
-    //       cpf: values.cpf,
-    //       company: values.company ?? null,
-    //       role: values.role ?? null,
-    //       email: values.email,
-    //       password: values.password,
-    //     },
-    //   });
-    //   console.log(response.data);
+
+    const personalAccountData = {
+      name: values.name,
+      cpf: values.cpf,
+      email: values.email,
+      password: values.password,
+    };
+
+    const cooperativeAccountData = {
+      name: values.name,
+      cpf: values.cpf,
+      company: values.company,
+      role: values.role,
+      email: values.email,
+      password: values.password,
+    };
+
+    const response = await axios({
+      method: "post",
+      url: "http://localhost:3000/sign-up",
+      data:
+        values.company === "" ? personalAccountData : cooperativeAccountData,
+    });
+    console.log(response.data);
   }
 
   return (

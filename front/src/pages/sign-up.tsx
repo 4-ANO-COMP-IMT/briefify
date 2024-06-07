@@ -26,7 +26,7 @@ export default function SignIn() {
 
   return (
     <div
-      className={`w-screen ${accountType === "cooperative" ? "h-full py-32" : "h-screen"} bg-muted flex items-center justify-center`}
+      className={`w-screen ${accountType === "cooperative" ? "h-full py-32 md:h-screen md:p-0" : "h-screen"} bg-muted flex items-center justify-center`}
     >
       <Card className="w-10/12 md:w-fit">{cardContent}</Card>
     </div>
