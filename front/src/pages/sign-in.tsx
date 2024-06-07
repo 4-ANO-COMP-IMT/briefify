@@ -113,6 +113,12 @@ export default function SignIn() {
               </Button>
             </form>
           </Form>
+          <p className="text-muted-foreground text-sm w-full text-center pt-5">
+            Ainda não tem uma conta?{" "}
+            <a href="/sign-up" className="hover:underline">
+              <strong className="font-semibold">Crie uma agora</strong>
+            </a>
+          </p>
         </CardContent>
       </Card>
     </div>
