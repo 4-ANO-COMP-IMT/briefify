@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { buttonVariants } from "./ui/button";
 import { Logo } from "./ui/logo";
+import { UserContext } from "@/contexts/user-context";
 
 export function Navbar() {
+  const { isLogged } = useContext(UserContext);
+
   const AUTH_BUTTONS_VISIBILITY =
     window.location.pathname === "/sign-in" ||
     window.location.pathname === "/sign-up";
@@ -12,7 +16,7 @@ export function Navbar() {
         <Logo />
       </a>
       <div
-        className={`flex flex-row gap-2 items-center ${AUTH_BUTTONS_VISIBILITY ? "hidden" : null}`}
+        className={`flex flex-row gap-2 items-center ${AUTH_BUTTONS_VISIBILITY || isLogged ? "hidden" : null}`}
       >
         <a href="/sign-up" className={buttonVariants({ variant: "ghost" })}>
           Cadastrar

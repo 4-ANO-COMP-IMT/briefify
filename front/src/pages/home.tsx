@@ -48,7 +48,13 @@ function Home() {
           <Button variant={"ghost"} size={"lg"}>
             Criar Reunião
           </Button>
-          <Button>Entrar em Reunião</Button>
+          <Button
+            onClick={() => {
+              window.location.replace("/meeting");
+            }}
+          >
+            Entrar em Reunião
+          </Button>
         </motion.div>
       </div>
     </LampContainer>
