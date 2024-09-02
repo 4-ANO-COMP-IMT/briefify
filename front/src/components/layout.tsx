@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Navbar } from "./navbar";
+import { UserProvider } from "@/contexts/user-context";
 
 interface LayoutProps {
   children: ReactNode;
@@ -8,8 +9,10 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className="h-full relative">
-      <Navbar />
-      {children}
+      <UserProvider>
+        <Navbar />
+        {children}
+      </UserProvider>
     </div>
   );
 }

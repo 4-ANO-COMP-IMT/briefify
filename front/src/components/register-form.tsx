@@ -18,6 +18,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import { useContext, useEffect } from "react";
+import { UserContext } from "@/contexts/user-context";
 
 const RegisterSchema = z
   .object({
@@ -50,6 +52,8 @@ interface RegisterFormProps {
 }
 
 export default function RegisterForm({ accountType }: RegisterFormProps) {
+  const { setUser, user } = useContext(UserContext);
+
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -88,8 +92,23 @@ export default function RegisterForm({ accountType }: RegisterFormProps) {
       data:
         values.company === "" ? personalAccountData : cooperativeAccountData,
     });
-    console.log(response.data);
+
+    if (response.status === 201) {
+      setUser({
+        id: response.data.id,
+        email: response.data.email,
+        name: response.data.name,
+        company: response.data.company,
+        role: response.data.role,
+      });
+    }
   }
+
+  useEffect(() => {
+    if (user) {
+      window.location.replace("/meeting");
+    }
+  }, [user]);
 
   return (
     <>

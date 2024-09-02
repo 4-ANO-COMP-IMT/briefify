@@ -19,6 +19,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import { useContext, useEffect } from "react";
+import { UserContext } from "@/contexts/user-context";
 
 const LoginSchema = z
   .object({
@@ -38,6 +40,8 @@ const LoginSchema = z
   );
 
 export default function SignIn() {
+  const { setUser, user } = useContext(UserContext);
+
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -55,8 +59,21 @@ export default function SignIn() {
         password: values.password,
       },
     });
-    console.log(response.data);
+
+    setUser({
+      id: response.data.id,
+      email: response.data.email,
+      name: response.data.name,
+      company: response.data.company,
+      role: response.data.role,
+    });
   }
+
+  useEffect(() => {
+    if (user) {
+      window.location.replace("/meeting");
+    }
+  }, [user]);
 
   return (
     <div className="w-screen h-screen bg-muted flex items-center justify-center">
