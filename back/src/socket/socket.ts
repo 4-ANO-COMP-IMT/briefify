@@ -6,16 +6,19 @@ import onConnection from "./events/on-connect";
 import onSendMessage from "./events/send-message";
 import onDisconnect from "./events/on-disconnect";
 import onStartTime from "./events/on-start-time";
+import onEnterMeeting from "./events/on-enter-meeting";
 
-const connectedSockets: Set<string> = new Set();
+const connectedUsers: Set<{ socketId: string; userId: string }> = new Set();
+const meetingLeader: string = "";
 const secCount: number = 0;
 
 const handleSocketEvents = (io: Server) => {
   io.on("connection", (socket) => {
-    onConnection(socket, connectedSockets, secCount);
+    onConnection(socket, secCount);
+    onEnterMeeting(socket, connectedUsers);
     onSendMessage(socket);
-    onStartTime(socket);
-    onDisconnect(socket, connectedSockets);
+    onStartTime(socket, meetingLeader);
+    onDisconnect(socket, connectedUsers);
   });
 };
 
