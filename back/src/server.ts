@@ -4,6 +4,7 @@ import status from "src/routes/status";
 import signIn from "src/routes/sign-in";
 import signUp from "src/routes/sign-up";
 import user from "src/routes/user";
+import resume from "src/routes/resume";
 import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
@@ -29,6 +30,7 @@ app.use(status);
 app.use(signIn);
 app.use(signUp);
 app.use(user);
+app.use(resume);
 
 const server = http.createServer(app);
 
