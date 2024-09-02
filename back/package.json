@@ -1,0 +1,56 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "back:run": "tsx src/server.ts",
+    "back:dev": "pnpm run back:docker-up && tsx watch src/server.ts",
+    "back:build": "tsup src",
+    "back:test": "vitest",
+    "back:docker-up": "docker compose -f src/infra/compose.yaml up -d",
+    "back:docker-down": "docker compose -f src/infra/compose.yaml down",
+    "back:lint:check": "prettier --check .",
+    "back:lint:fix": "prettier --write .",
+    "back:prisma:migrate": "pnpm prisma migrate dev --name init",
+    "back:prisma:run": "pnpm prisma migrate dev"
+  },
+  "prisma": {
+    "schema": "src/infra/prisma/schema.prisma"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.19.0",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-fileupload": "^1.5.1",
+    "file-type": "^19.4.1",
+    "fs": "0.0.1-security",
+    "multer": "1.4.5-lts.1",
+    "openai": "^4.57.0",
+    "pg": "^8.12.0",
+    "socket.io": "^4.7.5",
+    "uuid": "^9.0.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^20.16.3",
+    "@types/pg": "^8.11.8",
+    "@types/uuid": "^9.0.8",
+    "prettier": "^3.3.3",
+    "prisma": "^5.19.0",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.2.4",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4",
+    "vitest": "^1.6.0"
+  }
+}
