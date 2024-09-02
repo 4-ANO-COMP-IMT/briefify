@@ -7,6 +7,7 @@ import SignUp from "./pages/sign-up.tsx";
 import Layout from "./components/layout.tsx";
 import Meeting from "./pages/meeting.tsx";
 import SignIn from "./pages/sign-in.tsx";
+import Resume from "./pages/resume.tsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/meeting",
     element: <Meeting />,
+  },
+  {
+    path: "/resume",
+    element: <Resume />,
   },
 ]);
 
