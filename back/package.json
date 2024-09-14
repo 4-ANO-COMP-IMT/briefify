@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "back:run": "tsx src/server.ts",
-    "back:dev": "pnpm run back:docker-up && tsx watch src/server.ts",
+    "back:dev": "tsx watch src/server.ts",
+    "back:prod": "pnpm tsx watch src/server.ts",
     "back:build": "tsup src",
     "back:test": "vitest",
     "back:docker-up": "docker compose -f src/infra/compose.yaml up -d",
