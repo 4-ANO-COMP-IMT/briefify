@@ -1,9 +1,9 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
-import status from "src/transcription/routes/status";
-import signIn from "src/user/route/sign-in";
-import signUp from "src/user/routes/sign-up";
-import user from "src/user/route/user";
+import status from "src/member/routes/status";
+import signIn from "src/member/routes/sign-in";
+import signUp from "src/member/routes/sign-up";
+import user from "src/member/routes/user";
 import resume from "src/transcription/routes/resume";
 import cors from "cors";
 import http from "http";

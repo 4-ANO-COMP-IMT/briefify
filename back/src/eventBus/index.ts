@@ -5,7 +5,7 @@ import { environments } from '../env/environments'
 const server = async () => {
 
     const app = express();
-    const port = environments.PORT
+    const port = environments.EVENTBUS_PORT
     const front_port = 5173;
 
     app.get("/", (req, res) => {
