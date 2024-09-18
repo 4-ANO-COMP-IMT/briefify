@@ -2,11 +2,15 @@ import { Request, Response } from "express";
 import database from "src/infra/database";
 import { z } from "zod";
 import bcrypt from "bcrypt";
+import { Publisher } from "src/shared/RabbitMQ/publisher";
 
 const SignInSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
+
+// Inicializando o publisher para a fila de sign-in
+const publisher = new Publisher('signin_queue');
 
 const signIn = async (req: Request, res: Response) => {
   try {
@@ -30,6 +34,20 @@ const signIn = async (req: Request, res: Response) => {
     if (!passwordMatch) {
       return res.status(401).json({ error: "Invalid password." });
     }
+
+    // Conectando ao publisher
+    await publisher.connect();
+
+    // Publicando evento de login bem-sucedido
+    const eventMessage = JSON.stringify({
+      id: user.id,
+      email: user.email,
+      timestamp: new Date().toISOString(),
+      eventType: 'user_sign_in',
+    });
+
+    // Publicação com await
+    await publisher.publish(eventMessage);
 
     return res.status(200).json({
       id: user.id,

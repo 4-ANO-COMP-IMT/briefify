@@ -1,32 +1,34 @@
 import cors from "cors";
 import express from "express";
-
+import signUpRoutes from "src/member/routes/sign-up";
+import signInRoutes from "src/member/routes/sign-in";
 import { environments } from "src/shared/env/environments";
-import signIn from "src/member/routes/sign-in";
-import signUp from "src/member/routes/sign-up";
-import user from "src/member/routes/user";
+import { Subscriber } from "src/shared/RabbitMQ/subscriber";
 
-const server = async () => {
+const app = express();
+app.use(express.json());
+app.use(cors());
 
-    const PORT = environments.MEMBER_PORT
+// Rotas
+app.use('/', signUpRoutes);
+app.use('/', signInRoutes);
 
-    const app = express()
-    app.use(express.json())
-    app.use(cors())
+// Iniciando o subscriber para escutar a fila de "signup_queue"
+const signUpSubscriber = new Subscriber('signup_queue', (message) => {
+    console.log('Processed signup event:', message);
+    // Processamento adicional, como enviar email de boas-vindas
+});
+signUpSubscriber.connect();
 
-    app.use(signIn);
-    app.use(signUp);
-    app.use(user);
-    
-    app.get('/', (req, res) => {
-        res.send('API is running.')
-    })
+// Iniciando o subscriber para escutar a fila de "signin_queue"
+const signInSubscriber = new Subscriber('signin_queue', (message) => {
+    console.log('Processed signin event:', message);
+    // Processamento adicional para eventos de sign-in
+});
+signInSubscriber.connect();
 
-   
-
-    app.listen(PORT, () => {
-        console.log(`Member is running on port ${PORT}`)
-    })   
-}
-server()
-
+// Inicializando o servidor
+const PORT = environments.MEMBER_PORT || 4000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
