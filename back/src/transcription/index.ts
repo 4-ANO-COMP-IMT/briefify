@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 
-import { environments } from "src/env/environments";
+import { environments } from "src/shared/env/environments";
 import resume from "src/transcription/routes/resume"
 
 

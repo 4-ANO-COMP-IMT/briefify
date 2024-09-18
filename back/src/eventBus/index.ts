@@ -1,5 +1,5 @@
 import express from 'express'
-import { environments } from '../env/environments'
+import { environments } from '../shared/env/environments'
 
 
 const server = async () => {

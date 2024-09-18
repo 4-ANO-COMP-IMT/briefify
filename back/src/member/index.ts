@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 
-import { environments } from "src/env/environments";
+import { environments } from "src/shared/env/environments";
 import signIn from "src/member/routes/sign-in";
 import signUp from "src/member/routes/sign-up";
 import user from "src/member/routes/user";
