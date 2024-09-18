@@ -22,10 +22,7 @@ const server = async () => {
         res.send('API is running.')
     })
 
-    app.post('/eventBus', (req, res) => {
-        console.log('eventBus is listening.')
-        res.status(200).send({ msg: 'OK' })
-    })
+   
 
     app.listen(PORT, () => {
         console.log(`Member is running on port ${PORT}`)
