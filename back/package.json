@@ -8,6 +8,7 @@
     "back:dev": "tsx watch src/server.ts",
     "back:dev:eventBus": "tsx watch src/eventBus/index.ts",
     "back:dev:member": "tsx watch src/member/index.ts",
+    "back:dev:transcription": "tsx watch src/transcription/index.ts",
     "back:prod": "pnpm tsx watch src/server.ts",
     "back:build": "tsup src",
     "back:test": "vitest",

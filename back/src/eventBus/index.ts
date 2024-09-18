@@ -5,8 +5,10 @@ import { environments } from '../env/environments'
 const server = async () => {
 
     const app = express();
-    const port = environments.EVENTBUS_PORT
-    const front_port = 5173;
+    const EVENTBUS = environments.EVENTBUS_PORT
+    const MEMBER_PORT = environments.MEMBER_PORT
+    const TRANSCIPTION_PORT = environments.TRANSCRIPTION_PORT
+
 
     app.get("/", (req, res) => {
         res.send("EventBus is running");
@@ -17,8 +19,8 @@ const server = async () => {
         res.status(200).send({ status: "ok" });
     });
 
-    app.listen(port, () => {
-        console.log(`EventBus is running on port ${port}`);
+    app.listen(EVENTBUS, () => {
+        console.log(`EventBus is running on port ${EVENTBUS}`);
     });
     }
 
