@@ -2,13 +2,14 @@ import amqp from 'amqplib';
 
 export class Subscriber {
   private channel: amqp.Channel | null = null;
+  private connection: amqp.Connection | null = null;
 
   constructor(private queue: string, private onMessage: (msg: string) => void) {}
 
   async connect() {
     try {
-      const connection = await amqp.connect('amqp://localhost');
-      this.channel = await connection.createChannel();
+      this.connection = await amqp.connect('amqp://localhost');
+      this.channel = await this.connection.createChannel();
       await this.channel.assertQueue(this.queue, { durable: true });
       this.consumeMessages();
     } catch (error) {
@@ -29,5 +30,15 @@ export class Subscriber {
         this.channel?.ack(message);
       }
     }, { noAck: false });
+  }
+
+  async close() {
+    try {
+      await this.channel?.close();
+      await this.connection?.close();
+      console.log(`Closed connection for queue ${this.queue}`);
+    } catch (error) {
+      console.error('Error closing RabbitMQ connection:', error);
+    }
   }
 }
