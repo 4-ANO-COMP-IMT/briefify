@@ -1,10 +1,10 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
-import status from "src/routes/status";
-import signIn from "src/routes/sign-in";
-import signUp from "src/routes/sign-up";
-import user from "src/routes/user";
-import resume from "src/routes/resume";
+import status from "src/member/routes/status";
+import signIn from "src/member/routes/sign-in";
+import signUp from "src/member/routes/sign-up";
+import user from "src/member/routes/user";
+import resume from "src/transcription/routes/resume";
 import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";

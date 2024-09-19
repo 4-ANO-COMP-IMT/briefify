@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import transcribeController from "src/controllers/resume-controller";
+import transcribeController from "src/transcription/controller/resume-controller";
 
 const router = express.Router();
 
