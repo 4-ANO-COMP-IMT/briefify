@@ -41,15 +41,12 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = true;
     });
 
-    final String email =
-        _usernameController.text; // Changed from username to email
+    final String email = _usernameController.text;
     final String password = _passwordController.text;
 
     log('data: $email, $password');
 
-    // Update the URL to your endpoint
-    const String url =
-        'http://localhost:4000/sign-in'; // Use http instead of https for localhost
+    const String url = 'http://localhost:4000/sign-in';
 
     try {
       final response = await http.post(
@@ -58,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'email': email, // Key changed from 'username' to 'email'
+          'email': email,
           'password': password,
         }),
       );
@@ -66,12 +63,10 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response.statusCode == 200) {
         // Successful login
         Navigator.push(
-          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => const HomePage()),
         );
       } else {
-        // Login failed
         showDialog(
           // ignore: use_build_context_synchronously
           context: context,
@@ -92,6 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       // Handle error
+      // ignore: avoid_print
       print('Error: $e');
     } finally {
       setState(() {
@@ -204,8 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
-                                onPressed:
-                                    _login, // Call the _login method here
+                                onPressed: _login,
                                 child: const Text('Entrar'),
                               ),
                             ),
