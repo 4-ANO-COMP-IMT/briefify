@@ -1,5 +1,8 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
+// import 'screens/login_screen.dart';
+import 'screens/signup_screen.dart';
+import 'screens/home_screen.dart';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -36,7 +39,41 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _isLoading = false;
 
+  void _navigateToSignUp() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SignUpScreen()),
+    );
+  }
+
+  void _navigateToHome(String userName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage(userName: userName)),
+    );
+  }
+
   Future<void> _login() async {
+    if (_usernameController.text.isEmpty || _passwordController.text.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Falha no Login'),
+            content: const Text('Por favor, preencha todos os campos.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
@@ -61,11 +98,11 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       if (response.statusCode == 200) {
-        // Successful login
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
-        );
+        final responseData = jsonDecode(response.body);
+
+        final String userName = responseData['name'] ?? 'Usuário';
+
+        _navigateToHome(userName);
       } else {
         showDialog(
           // ignore: use_build_context_synchronously
@@ -119,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       children: [
                         Icon(
-                          Icons.multitrack_audio, // Audio icon
+                          Icons.multitrack_audio,
                           color: Colors.white,
                           size: 20,
                         ),
@@ -181,7 +218,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: const InputDecoration(labelText: 'Senha'),
                         obscureText: true,
                       ),
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 5),
+                      TextButton(
+                        onPressed: _navigateToSignUp,
+                        child: const Text('Não tem uma conta? Cadastre-se'),
+                      ),
+                      const SizedBox(height: 20),
                       _isLoading
                           ? const CircularProgressIndicator()
                           : Container(
@@ -211,22 +253,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Página Inicial'),
-      ),
-      body: const Center(
-        child: Text('Bem-vindo!'),
       ),
     );
   }
