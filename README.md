@@ -1,5 +1,11 @@
 ## Briefify: Simplificando a Gestão de Reuniões
 
+### Vídeo
+
+Descubra como o **Briefify** pode transformar a maneira como você gerencia suas reuniões, tornando-as mais eficientes e produtivas. Nosso vídeo explicativo mostra todas as funcionalidades que facilitam a organização, acompanhamento e conclusão de reuniões de forma simplificada.
+
+[Assista ao vídeo aqui](https://youtu.be/ajeba-VwasI)
+
 ### Resumo do Projeto
 
 A Briefify é uma empresa inovadora que oferece um aplicativo para transformar áudios de reuniões em atas detalhadas e precisas automaticamente. Focada em aumentar a produtividade empresarial, a Briefify atende empresas de todos os portes, proporcionando eficiência na documentação de reuniões com uma interface amigável e tecnologia avançada de processamento de linguagem natural.
